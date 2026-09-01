@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- Page d'atelier (dev uniquement) : l'app dans un cadre de téléphone.
+     L'iframe fait 390 px de large, donc les media queries voient un vrai
+     mobile, quel que soit le zoom de la fenêtre ; le transform ne fait
+     qu'agrandir l'image. Ouvrir http://localhost:4201/telephone.html -->
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Atelier téléphone</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #26241f; overflow: hidden; }
+  .scene { height: 100%; display: grid; place-items: center; }
+  .cadre {
+    width: 390px; height: 800px; border-radius: 28px; overflow: hidden;
+    outline: 6px solid #0d0c0a; background: #f2f1ed;
+    transform-origin: center center;
+  }
+  iframe { width: 390px; height: 800px; border: 0; display: block; }
+</style>
+</head>
+<body>
+  <div class="scene"><div class="cadre" id="cadre">
+    <iframe id="app" src="/app"></iframe>
+  </div></div>
+  <script>
+    function ajuster() {
+      const s = Math.min((innerWidth - 24) / 390, (innerHeight - 24) / 800);
+      document.getElementById('cadre').style.transform = 'scale(' + s + ')';
+    }
+    ajuster();
+    addEventListener('resize', ajuster);
+  </script>
+</body>
+</html>
